@@ -12,29 +12,9 @@
 </head>
 <body>
 
-    <h1>Clima del Momento</h1>
-    <button id="listarClima" style="margin-bottom:5%;">Traer Información</button>
-    <div class="container">
-        <div class="row" id = "clima">
-        </div>
-        </div>
+    <h1>Clima del Momento</h1>        
 
-        <nav>
-            <ul class="nav">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#">Active</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link"  href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="clima" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled">Disabled</a>
-                </li>
-              </ul>
-        </nav>
+        <div id="clima"></div>
 
             <!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
@@ -58,47 +38,18 @@
             }
         };
 
-        $(document).ready(function() {
-            $("#listarClima").click(function() {
-                $.get(url, function(data){
-                let clima = data[data.locations]            
-                $("#clima").log(clima.locations["La Florida, Región Metropolitana de Santiago"].id)
-                
-
-
-        })});});       
-
+            Localidad = 'La Florida, Región Metropolitana de Santiago';
             $.ajax(settings).done(function (response) {
-                console.log(response);
-                console.log(response.Object);
-                console.log(response.locations["La Florida, Región Metropolitana de Santiago"].id);
-                console.log(response.locations["La Florida, Región Metropolitana de Santiago"].currentConditions.temp);
-                console.log(response.locations["La Florida, Región Metropolitana de Santiago"].currentConditions.icon);
-                console.log(response.locations["La Florida, Región Metropolitana de Santiago"].currentConditions.datetime);
-            });
+            console.log(response);
+            console.log(response.locations[Localidad].values[0].temp);
+            console.log(response.locations[Localidad].values[0].maxt);
+            console.log(response.locations[Localidad].values[0].mint);
+            console.log(response.locations[Localidad].values[0].datetimeStr);
+            $.each(response, function(i, item) {
+                $("#clima").append("<h2>Temperatura: "+item.locations[Localidad].values.temp+ " Max: "+item.locations[Localidad].values.maxt+"</h2>");
+            });            
+        });
 
-
-            // $(document).ready(function() {
-            //     $("#listarClima").click(function() {
-            //         $.get(url, function(data) {
-            //             $.each(data.locations, function(i, item) {
-            //                 $("#climaSantiago").append(
-            //                     `<div class="col-md-4">
-            //                             <div class = "card" style = "margin-bottom: 5%; border: 2px solid black; height:98%;">
-            //                                 <img class="card-img-top" src="${currentConditions.icon}" style="border-bottom: 2px solid black;">
-            //                                 <div class="card-body">
-            //                                     <h5 class="card-title">${currentConditions.temp}</h5>
-            //                                     <br>
-            //                                     <p>${currentConditions.temp}</p>
-            //                                     <p>${currentConditions.datetime}</p>
-            //                                 </div>
-            //                             </div>
-            //                     </div>` 
-            //                 );
-            //             });
-            //         });
-            //     });
-            // });
     </script>
     
 </body>
