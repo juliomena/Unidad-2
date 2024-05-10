@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API_Prueba</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">	
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <h1>Clima del Momento</h1>        
+
+        <div id="clima"></div>
+
+            <!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+    
+
+    <script>
+        const settings = {
+            async: true,
+            crossDomain: true,
+            url: 'https://visual-crossing-weather.p.rapidapi.com/forecast?aggregateHours=24&location=La%20Florida%2C%20Regi%C3%B3n%20Metropolitana%20de%20Santiago&contentType=json&unitGroup=metric&shortColumnNames=0',
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'fbf8112a5emsh5a28826d27b54fcp159651jsn85246c13fda1',
+                'X-RapidAPI-Host': 'visual-crossing-weather.p.rapidapi.com'
+            }
+        };
+
+            Localidad = 'La Florida, Región Metropolitana de Santiago';
+            $.ajax(settings).done(function (response) {
+            console.log(response);
+            console.log(response.locations[Localidad].values[0].temp);
+            console.log(response.locations[Localidad].values[0].maxt);
+            console.log(response.locations[Localidad].values[0].mint);
+            console.log(response.locations[Localidad].values[0].datetimeStr);
+            $.each(response, function(i, item) {
+                $("#clima").append("<h2>Temperatura: "+item.locations[Localidad].values.temp+ " Max: "+item.locations[Localidad].values.maxt+"</h2>");
+            });            
+        });
+
+    </script>
+    
+</body>
+</html>
